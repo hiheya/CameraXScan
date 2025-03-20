@@ -1,0 +1,73 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'work.icu007.cameraxscan'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "work.icu007.cameraxscan"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = ['src/main/jniLibs']
+            jni {
+                srcDirs 'src\\main\\jni', 'src\\main\\jniLibs'
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation project(':OpenCV')
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    // 原有的Android依赖
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    // CameraX依赖
+    def camerax_version = "1.1.0"
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    implementation "androidx.camera:camera-view:${camerax_version}"
+
+    // ZBar依赖
+//    implementation 'me.dm7.barcodescanner:zbar:1.9.13'
+    // 注意：如果上面的ZBar依赖不可用，可以尝试使用以下替代方案
+//     implementation 'com.journeyapps:zbar-android-sdk:1.9.8'
+
+    // ZXing依赖
+    implementation 'com.google.zxing:core:3.4.1'
+
+    // OpenCV依赖
+//    implementation 'org.opencv:opencv-android:4.5.3'
+    // MLKit条码扫描依赖
+    implementation 'com.google.mlkit:barcode-scanning:17.0.2'
+}
